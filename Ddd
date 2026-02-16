@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>المعرض السعودي الدولي لمستلزمات الإعاقة والتأهيل 2026</title>
+
+<style>
+    body {
+        font-family: "Cairo", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #e8eef3;
+        transition: background 0.5s, color 0.5s;
+    }
+
+    /* الوضع الليلي */
+    body.dark {
+        background: #121212;
+        color: #f2f2f2;
+    }
+
+    .slide {
+        width: 85%;
+        margin: 60px auto;
+        background: white;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        animation: fadeSlide 1s ease;
+        transition: background 0.5s, color 0.5s;
+    }
+
+    body.dark .slide {
+        background: #1f1f1f;
+        color: #fff;
+    }
+
+    h1, h2 {
+        color: #0b3d5c;
+        transition: color 0.5s;
+    }
+
+    body.dark h1, body.dark h2 {
+        color: #9cc9ff;
+    }
+
+    ul {
+        line-height: 1.9;
+        font-size: 19px;
+    }
+
+    .header-logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-logo img {
+        height: 80px;
+        animation: logoSpin 6s infinite linear;
+    }
+
+    @keyframes fadeSlide {
+        from { opacity: 0; transform: translateX(40px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes logoSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .icon {
+        width: 26px;
+        vertical-align: middle;
+        margin-left: 8px;
+    }
+
+    /* أزرار التنقل */
+    .nav-buttons {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-buttons button, .toggle-dark, .print-btn, .music-btn {
+        padding: 12px 25px;
+        font-size: 18px;
+        border: none;
+        border-radius: 10px;
+        background: #0b3d5c;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .nav-buttons button:hover,
+    .toggle-dark:hover,
+    .print-btn:hover,
+    .music-btn:hover {
+        background: #145a87;
+    }
+
+    .toggle-dark {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+    }
+
+    .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+    }
+
+    .music-btn {
+        position: fixed;
+        top: 20px;
+        right: 180px;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- موسيقى خلفية -->
+<audio id="bgMusic" loop>
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Scott_Holmes_Music/Corporate__Motivational_Music/Scott_Holmes_Music_-_Inspiring_Corporate.mp3" type="audio/mpeg">
+</audio>
+
+<button class="toggle-dark" onclick="toggleDark()">الوضع الليلي</button>
+<button class="print-btn" onclick="window.print()">طباعة العرض</button>
+<button class="music-btn" onclick="toggleMusic()">تشغيل/إيقاف الموسيقى</button>
+
+<div id="slides-container">
+
+<!-- الشرائح (نفس المحتوى السابق) -->
+<!-- ... (نفس الشرائح التي قدمتها لك سابقًا دون تغيير) ... -->
+
+</div>
+
+<!-- أزرار التنقل -->
+<div class="nav-buttons">
+    <button onclick="prevSlide()">السابق</button>
+    <button onclick="nextSlide()">التالي</button>
+</div>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+let autoSlide;
+
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.style.display = i === index ? "block" : "none";
+    });
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+
+showSlide(currentSlide);
+
+/* الوضع الليلي */
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
+
+/* الموسيقى */
+function toggleMusic() {
+    const music = document.getElementById("bgMusic");
+    if (music.paused) music.play();
+    else music.pause();
+}
+
+/* الانتقال التلقائي */
+function startAutoSlide() {
+    autoSlide = setInterval(nextSlide, 10000);
+}
+
+startAutoSlide();
+</script>
+
+</body>
+</html>
